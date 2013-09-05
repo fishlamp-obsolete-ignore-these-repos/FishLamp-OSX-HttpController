@@ -9,6 +9,8 @@
 
 #import "FLHttpController+UserLogin.h"
 #import "FLLoginPanel.h"
+#import "FLUserService.h"
+#import "FLHttpRequestAuthenticator.h"
 
 @implementation FLHttpController (UserLogin)
 
@@ -19,11 +21,12 @@
 - (void) loginPanel:(FLLoginPanel*) panel 
 beginAuthenticatingWithCredentials:(FLCredentialsEditor*) editor
          completion:(fl_result_block_t) completion {
+
     [self.httpRequestAuthenticator beginAuthenticating:completion];
 }
 
 - (void) loginPanelDidCancelAuthentication:(FLLoginPanel*) panel {
-    [self requestCancel];
+    [self.operationContext requestCancel];
 }
 
 - (BOOL) loginPanel:(FLLoginPanel*) panel 
